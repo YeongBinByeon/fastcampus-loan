@@ -74,7 +74,7 @@ public class ApplicationController extends AbstractController{
             String fileName = path.getFileName().toString();
             return FileDTO.builder()
                     .name(fileName)
-                    .url(MvcUriComponentsBuilder.fromMethodName(ApplicationController.class, "download", fileName).build().toString())
+                    .url(MvcUriComponentsBuilder.fromMethodName(ApplicationController.class, "download", applicationId, fileName).build().toString())
                     .build();
         }).collect(Collectors.toList());
 
