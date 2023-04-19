@@ -18,4 +18,9 @@ public class InternalController extends AbstractController{
         return ok(entryService.create(applicationId, request));
     }
 
+    @GetMapping("{applicationId}/entries")
+    public ResponseDTO<EntryDTO.Response> get(@PathVariable Long applicationId){
+        return ok(entryService.get(applicationId));
+    }
+
 }
