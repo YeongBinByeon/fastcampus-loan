@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.google.cloud.tools.jib' version '3.2.0'
     id 'java'
 }
 
@@ -16,6 +17,28 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+jib{
+    from{
+        // Base 이미지 정의
+        image = 'openjdk:11-jre-slim'
+    }
+    to{
+        image = 'fastcampus-loan'
+        tags = ['0.0.1']
+    }
+    container{
+        mainClass = 'com.fastcampus.loan.LoanApplication'
+        creationTime = 'USE_CURRENT_TIMESTAMP'
+        format = 'OCI'
+        volumes = ['/var/tmp']
+        entrypoint = [ 'java'
+                , '-cp', '/app/resources:/app/classes:/app/libs/*'
+                , 'com.fastcampus.loan.LoanApplication'
+
+        ]
+    }
 }
 
 dependencies {
